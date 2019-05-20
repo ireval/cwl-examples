@@ -21,7 +21,7 @@ from ruler.cwl_ruler import Ranking
 
 font = {
         'weight' : 'bold',
-        'size'   : 14}
+        'size'   : 24}
 
 matplotlib.rc('font', **font)
 matplotlib.rc('axes', linewidth=2)
@@ -34,7 +34,7 @@ bbox1 = dict(boxstyle="round",ec=ec1, fc=fc1,)
 
 
 def plot_text(text,xpos, ypos,bbox):
-    plt.text(xpos, ypos, text, size=10, rotation=0.,
+    plt.text(xpos, ypos, text, size=24, rotation=0.,
          ha="center", va="center",
          bbox=bbox
          )
@@ -98,15 +98,15 @@ def make_metric_plots(EDs, EUs, ETUs, ETCs, topics, metric_name):
     fig = plt.figure()
     plt.figure(figsize=(5,15))
     ax1 = plt.subplot(311)
-    add_plot_labels(plt,"Expected Utility (EU)", "Expected Depth (ED)", "{}: Sweep over Theta".format(metric_name))
+    add_plot_labels(plt, "Expected Utility (EU)", "Expected Depth (ED)", "{} over Theta".format(metric_name))
 
 
     ax2 = plt.subplot(312)
-    add_plot_labels(plt,"Expected Total Utility (ETU)", "Expected Depth (ED)", "")
+    add_plot_labels(plt, "Expected Total Utility (ETU)", "Expected Depth (ED)", "")
     plt.ylim([-0.03,3.03])
 
     ax3 = plt.subplot(313)
-    add_plot_labels(plt,"Expected Total Cost (ETC)", "Expected Depth (ED)", "")
+    add_plot_labels(plt, "Expected Total Cost (ETC)", "Expected Depth (ED)", "")
     plt.ylim([-0.03,20.03])
 
     topic_names = []
