@@ -16,7 +16,7 @@ from ruler.measures.cwl_rbp import *
 from ruler.measures.cwl_rr import *
 from ruler.measures.cwl_tbg import *
 from ruler.measures.cwl_umeasure import *
-from ruler.cwl_ruler import Ranking
+from ruler.ranking import Ranking
 
 
 font = {
@@ -43,9 +43,9 @@ def plot_text(text,xpos, ypos,bbox):
 def add_plot_labels(plt, ylabel, xlabel, title):
 
     plt.xticks(range(1,11))
-    plt.xlabel(xlabel, fontweight="bold")
-    plt.ylabel(ylabel, fontweight="bold")
-    plt.title(title,fontweight="bold")
+    plt.xlabel(xlabel, fontweight="normal", size=14)
+    plt.ylabel(ylabel, fontweight="normal", size=14)
+    plt.title(title,fontweight="normal", size=16)
     plt.ylim([-0.03,1.03])
 
 
@@ -61,17 +61,16 @@ def plot_cwl_figures(metric, topics):
     plt.figure(figsize=(15,5))
     plt.subplots_adjust(hspace=0.2)
     ax1 = plt.subplot(131)
-    add_plot_labels(plt,"$C_i$",'Position ($i$)', "C Function")
+    add_plot_labels(plt,"$C_i$", 'Position ($i$)', "C Function")
     plt.legend(labels=topic_names)
 
     ax2 = plt.subplot(132)
-    add_plot_labels(plt,"$W_i$",'Position ($i$)', "W Function")
+    add_plot_labels(plt, "$W_i$", 'Position ($i$)', "W Function")
     plt.legend(labels=topic_names)
 
     ax3 = plt.subplot(133)
-    add_plot_labels(plt,"$L_i$",'Position ($i$)', "L Function")
+    add_plot_labels(plt, "$L_i$", 'Position ($i$)', "L Function")
     plt.legend(labels=topic_names)
-
 
     for topic in topics:
         metric.measure(topic)
@@ -87,27 +86,24 @@ def plot_cwl_figures(metric, topics):
         plt.sca(ax3)
         plt.plot(x[0:10], lvec[0:n], 'x--', linewidth=3.0, markersize=8.0)
 
-
-    plt.savefig("CWL-Plot-{}.eps".format(metric.metric_name.strip()),bbox_inches='tight',format='eps')
+    plt.savefig("CWL-Plot-{}.eps".format(metric.metric_name.strip()),
+                bbox_inches='tight', format='eps')
     plt.show()
     plt.close()
-
-
 
 def make_metric_plots(EDs, EUs, ETUs, ETCs, topics, metric_name):
     fig = plt.figure()
     plt.figure(figsize=(5,15))
     ax1 = plt.subplot(311)
-    add_plot_labels(plt, "Expected Utility (EU)", "Expected Depth (ED)", "{} over Theta".format(metric_name))
-
+    add_plot_labels(plt, "Expected Utility (EU)", "", "{}".format(metric_name))
 
     ax2 = plt.subplot(312)
-    add_plot_labels(plt, "Expected Total Utility (ETU)", "Expected Depth (ED)", "")
-    plt.ylim([-0.03,3.03])
+    add_plot_labels(plt, "Expected Total Utility (ETU)", "", "")
+    plt.ylim([-0.03, 3.03])
 
     ax3 = plt.subplot(313)
     add_plot_labels(plt, "Expected Total Cost (ETC)", "Expected Depth (ED)", "")
-    plt.ylim([-0.03,20.03])
+    plt.ylim([-0.03, 20.03])
 
     topic_names = []
     for topic in topics:
@@ -121,18 +117,13 @@ def make_metric_plots(EDs, EUs, ETUs, ETCs, topics, metric_name):
         plt.sca(ax3)
         plt.plot(EDs[topic.topic_id], ETCs[topic.topic_id], 'o--', linewidth=3.0, markersize=8.0)
 
-
     plt.legend(labels=topic_names)
-
     plt.savefig("Measurement-Plot-{}.eps".format(metric_name.strip()),bbox_inches='tight',format='eps')
     plt.show()
     plt.close()
 
 def make_rbp_plots(topics, thetas = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]):
-
-
     rbp = RBPCWLMetric(theta=0.1)
-
     EUs = {}
     ETUs = {}
     ETCs = {}
@@ -154,17 +145,11 @@ def make_rbp_plots(topics, thetas = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9
 
     make_metric_plots(EDs,EUs,ETUs, ETCs, topics, "Rank Biased Precision (RBP)")
 
-
-
-
 def make_tbg_plots(topics, halflives = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0]):
-
     #halflives = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0]
     tbg = TBGCWLMetric(halflife=0.25)
-
     EUs = {}
     EDs = {}
-
     ETCs = {}
     ETUs = {}
 
@@ -184,12 +169,10 @@ def make_tbg_plots(topics, halflives = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2
 
     make_metric_plots(EDs,EUs,ETUs, ETCs, topics, "Time Biased Gain (TBG)")
 
-
 def make_bpm_plots(topics, Ts = [ 0.5, 1.0, 1.5, 2.0, 2.5, 3.0]):
 
     #Ts = [ 0.5, 1.0, 1.5, 2.0, 2.5, 3.0]
     bpm = BPMDCWLMetric(T=2, K=10.0, hc=0.5, hb=0.5)
-
     EUs = {}
     EDs = {}
     ETCs = {}
