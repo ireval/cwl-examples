@@ -19,6 +19,8 @@ In *notebooks/*, we have provided examples in Jupyter Notebooks Using the CWL Ev
 
 - *SIGIR2019-Demo-CWL-Plots.ipynb*: shows how the CWL framework can be used to inspect the internal continuation, weight and likelihood of stopping vectors
 - *SIGIR2019-Demo-Measurement-Plots*: shows the different measurements from the CWL framework provide different insights into how rankings are scored.
+- *Aggregating-And-Comparing-Systems*: shows how to read in the `cwl-eval` output aggregate and present the results, and how to perform statistical comparisons.
+
 
 Assumes that the cwl framework is installed.
 
